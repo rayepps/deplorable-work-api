@@ -43,17 +43,17 @@ async function submitWorkerProfile({ args, services }: Props<Args, Services>): P
 
   await graphcms.publishWorker(worker.id)
 
-//   slack.sendMessage(`*Worker Profile Created*
-// Id: \`${worker.id}\`
-// Name: \`${worker.name}\`
-// Role: \`${worker.desiredRole}\`
-// Thumbnail: ${worker.thumbnail?.url}
-// Edit: https://app.graphcms.com/c6f9fdc9fc0443d1b2b726217307c65f/master/content/6d919531bccb4a24bef1deb005634511/view/d57a29b985094f3c8b0d2e1ffb194fd5/${worker.id}
-// Description: 
-// \`\`\`
-// ${worker.description}
-// \`\`\`
-// `)
+  slack.sendMessage(`*Worker Profile Created*
+Id: \`${worker.id}\`
+Name: \`${worker.name}\`
+Role: \`${worker.desiredRole}\`
+Thumbnail: ${worker.thumbnail?.url}
+Edit: https://app.graphcms.com/c6f9fdc9fc0443d1b2b726217307c65f/master/content/6d919531bccb4a24bef1deb005634511/view/d57a29b985094f3c8b0d2e1ffb194fd5/${worker.id}
+Description: 
+\`\`\`
+${worker.description}
+\`\`\`
+`)
 
   return {
     worker

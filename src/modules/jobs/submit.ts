@@ -49,18 +49,18 @@ async function submitJobPosting({ args, services }: Props<Args, Services>): Prom
 
   await graphcms.publishJob(job.id)
 
-//   slack.sendMessage(`*Job Posting Created*
-// Id: \`${job.id}\`
-// Title: \`${job.title}\`
-// Location: \`${job.location}\`
-// Link: ${job.link}
-// Thumbnail: ${job.thumbnail?.url}
-// Edit: https://app.graphcms.com/c6f9fdc9fc0443d1b2b726217307c65f/master/content/32352eb2a0844004adffc7943b88089d/view/fd72b84d3d534af8b8cc4adb7771072d/${job.id}
-// Description: 
-// \`\`\`
-// ${job.description}
-// \`\`\`
-// `)
+  slack.sendMessage(`*Job Posting Created*
+Id: \`${job.id}\`
+Title: \`${job.title}\`
+Location: \`${job.location}\`
+Link: ${job.link}
+Thumbnail: ${job.thumbnail?.url}
+Edit: https://app.graphcms.com/c6f9fdc9fc0443d1b2b726217307c65f/master/content/32352eb2a0844004adffc7943b88089d/view/fd72b84d3d534af8b8cc4adb7771072d/${job.id}
+Description: 
+\`\`\`
+${job.description}
+\`\`\`
+`)
 
   return {
     job
