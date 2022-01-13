@@ -52,10 +52,19 @@ export class GraphCMS {
       mutation MakeJob($data: JobCreateInput!) {
         createJob(data: $data) {
           id
+          title
+          location
+          description
+          link
+          createdAt
+          companyName
+          thumbnail {
+            url
+          }
         }
       }
     `
-    const response = await this.client.request(mutation, {
+    const response = await this.client.request<{ createJob: t.JobItem }>(mutation, {
       data: {
         title: model.title,
         location: model.location,
@@ -71,10 +80,7 @@ export class GraphCMS {
         })
       }
     })
-    return {
-      ...model,
-      id: response.createJob.id
-    }
+    return mappers.JobItem.toModel(response.createJob)
   }
   
   async createWorker(model: Omit<t.Worker, 'id'>): Promise<t.Worker> {
@@ -82,10 +88,17 @@ export class GraphCMS {
       mutation MakeWorker($data: WorkerCreateInput!) {
         createWorker(data: $data) {
           id
+          name
+          description
+          desiredRole
+          createdAt
+          thumbnail {
+            url
+          }
         }
       }
     `
-    const response = await this.client.request(mutation, {
+    const response = await this.client.request<{ createWorker: t.WorkerItem }>(mutation, {
       data: {
         name: model.name,
         desiredRole: model.desiredRole,
@@ -99,10 +112,7 @@ export class GraphCMS {
         })
       }
     })
-    return {
-      ...model,
-      id: response.createWorker.id
-    }
+    return mappers.WorkerItem.toModel(response.createWorker)
   }
 
   async publishJob(jobId: string): Promise<void> {

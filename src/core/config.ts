@@ -22,6 +22,7 @@ const config = {
     version: get('LUNE_VERSION'),
     graphcmsApiToken: get('GRAPHCMS_API_TOKEN'),
     graphcmsApiUrl: get('GRAPHCMS_API_URL'),
+    slackOauthToken: get('SLACK_OAUTH_TOKEN')
 }
 
 export type Config = typeof config

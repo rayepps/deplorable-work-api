@@ -4,6 +4,7 @@ import type { Props } from '@exobase/core'
 import { useJsonArgs, useCors, useService } from '@exobase/hooks'
 import { useLambda } from '@exobase/lambda'
 import makeGraphCMS, { GraphCMS } from '../../core/graphcms'
+import makeSlack, { SlackClient } from '../../core/slack'
 
 
 interface Args {
@@ -15,6 +16,7 @@ interface Args {
 
 interface Services {
   graphcms: GraphCMS
+  slack: SlackClient
 }
 
 interface Response {
@@ -22,7 +24,7 @@ interface Response {
 }
 
 async function submitWorkerProfile({ args, services }: Props<Args, Services>): Promise<Response> {
-  const { graphcms } = services
+  const { graphcms, slack } = services
 
   const worker = await graphcms.createWorker({
     name: args.name,
@@ -41,6 +43,18 @@ async function submitWorkerProfile({ args, services }: Props<Args, Services>): P
 
   await graphcms.publishWorker(worker.id)
 
+//   slack.sendMessage(`*Worker Profile Created*
+// Id: \`${worker.id}\`
+// Name: \`${worker.name}\`
+// Role: \`${worker.desiredRole}\`
+// Thumbnail: ${worker.thumbnail?.url}
+// Edit: https://app.graphcms.com/c6f9fdc9fc0443d1b2b726217307c65f/master/content/6d919531bccb4a24bef1deb005634511/view/d57a29b985094f3c8b0d2e1ffb194fd5/${worker.id}
+// Description: 
+// \`\`\`
+// ${worker.description}
+// \`\`\`
+// `)
+
   return {
     worker
   }
@@ -57,7 +71,8 @@ export default _.compose(
     thumbnailId: yup.string().nullable().default(null)
   })),
   useService<Services>({
-    graphcms: makeGraphCMS()
+    graphcms: makeGraphCMS(),
+    slack: makeSlack()
   }),
   submitWorkerProfile
 )
