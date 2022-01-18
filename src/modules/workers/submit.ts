@@ -43,7 +43,7 @@ async function submitWorkerProfile({ args, services }: Props<Args, Services>): P
 
   await graphcms.publishWorker(worker.id)
 
-  slack.sendMessage(`*Worker Profile Created*
+  await slack.sendMessage(`*Worker Profile Created*
 Id: \`${worker.id}\`
 Name: \`${worker.name}\`
 Role: \`${worker.desiredRole}\`

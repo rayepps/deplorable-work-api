@@ -49,7 +49,7 @@ async function submitJobPosting({ args, services }: Props<Args, Services>): Prom
 
   await graphcms.publishJob(job.id)
 
-  slack.sendMessage(`*Job Posting Created*
+  await slack.sendMessage(`*Job Posting Created*
 Id: \`${job.id}\`
 Title: \`${job.title}\`
 Location: \`${job.location}\`
